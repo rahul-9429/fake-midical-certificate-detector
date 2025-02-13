@@ -6,8 +6,10 @@ from flask import Flask, request, jsonify
 from PIL import Image
 from pyzbar.pyzbar import decode
 from urllib.parse import urlparse
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Load the XGBoost model
 def load_model():
@@ -103,7 +105,7 @@ def predict():
         
         print(f"Model Prediction: {result}")  # Debug log
 
-        return jsonify({"prediction": str(result[0]), "Resolved url": resolved_url}), 200
+        return jsonify({"prediction": str(result[0]), "Resolved_url": resolved_url}), 200
 
     except Exception as e:
         return jsonify({"error": f"Failed to process request: {str(e)}"}), 400
