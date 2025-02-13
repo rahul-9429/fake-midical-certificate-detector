@@ -64,6 +64,11 @@ def extract_features(url):
     ]
     return features
 
+@app.route('/')
+def home():
+    return jsonify({"msg":" Welcome to the Hospital URL Prediction API! Use the /predict endpoint to make predictions."})
+
+
 @app.route('/predict', methods=['POST'])
 def predict():
     if "image" not in request.files:
@@ -98,7 +103,7 @@ def predict():
         
         print(f"Model Prediction: {result}")  # Debug log
 
-        return jsonify({"prediction": str(result[0])})
+        return jsonify({"prediction": str(result[0]), "Resolved url": resolved_url}), 200
 
     except Exception as e:
         return jsonify({"error": f"Failed to process request: {str(e)}"}), 400
